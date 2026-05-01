@@ -88,7 +88,7 @@ Ensure there are exactly 3 decisions. Do not include markdown formatting or back
     }
   });
 
-  const responseText = response.text();
+  const responseText = response.text;
   if (!responseText) throw new Error("Empty response from Gemini");
 
   let parsed: GeminiResponse;
@@ -185,7 +185,7 @@ Ensure the JSON is strictly formatted without markdown code blocks outside of th
     }
   });
 
-  const responseText = response.text();
+  const responseText = response.text;
   if (!responseText) throw new Error("Empty response from Gemini");
 
   let parsed: Omit<TopicScoreResult, 'score'>;
