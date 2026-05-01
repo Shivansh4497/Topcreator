@@ -61,7 +61,7 @@ export async function completeOnboarding(goal: string, nicheInput: string) {
     throw new Error(channelError.message);
   }
 
-  return { success: true };
+  return { success: true, userId: user!.id };
 }
 
 import { scoreTopic } from "@/lib/gemini";
