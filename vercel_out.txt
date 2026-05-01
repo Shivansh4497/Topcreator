@@ -1,0 +1,47 @@
+Retrieving project…
+Deploying shivanshs-projects-0f43f285/topcreator-app
+Uploading [--------------------] (0.0B/75B)
+Uploading [====================] (75.0B/75B)
+Inspect: https://vercel.com/shivanshs-projects-0f43f285/topcreator-app/7RYNpVX6c1rVe1pEctdi92YPK2kV [2s]
+Production: https://topcreator-as9lwsxjl-shivanshs-projects-0f43f285.vercel.app [2s]
+https://topcreator-as9lwsxjl-shivanshs-projects-0f43f285.vercel.appBuilding...
+Building...
+Building: Running build in Washington, D.C., USA (East) – iad1
+Building: Build machine configuration: 2 cores, 8 GB
+Building: Retrieving list of deployment files...
+Building: Previous build caches not available.
+Building: Downloading 47 deployment files...
+Building: Running "vercel build"
+Building: Vercel CLI 51.6.1
+Building: Installing dependencies...
+Building: npm warn deprecated node-domexception@1.0.0: Use your platform's native DOMException instead
+Building: added 422 packages in 14s
+Building: 156 packages are looking for funding
+Building: run `npm fund` for details
+Building: Detected Next.js version: 16.2.4
+Building: Running "npm run build"
+Building: > topcreator-app@0.1.0 build
+Building: > next build
+Building: Applying modifyConfig from Vercel
+Building: Attention: Next.js now collects completely anonymous telemetry regarding usage.
+Building: This information is used to shape Next.js' roadmap and prioritize features.
+Building: You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+Building: https://nextjs.org/telemetry
+Building: ▲ Next.js 16.2.4 (Turbopack)
+Building: ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+Building: Creating an optimized production build ...
+Building: ✓ Compiled successfully in 10.0s
+Building: Running TypeScript ...
+Building: Failed to type check.
+Building: ./src/app/actions.ts:11:45
+Building: Type error: Property 'accessToken' does not exist on type 'Session'.
+Building: 9 | export async function completeOnboarding(goal: string, nicheInput: string) {
+Building: 10 |   const session = await auth();
+Building: > 11 |   if (!session || !session.user || !session.accessToken) {
+Building: |                                             ^
+Building: 12 |     throw new Error("Not authenticated");
+Building: 13 |   }
+Building: 14 |
+Building: Next.js build worker exited with code: 1 and signal: null
+Building: Error: Command "npm run build" exited with 1
+Error: Command "npm run build" exited with 1

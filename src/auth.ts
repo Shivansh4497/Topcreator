@@ -24,10 +24,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
     async session({ session, token }) {
       // Send properties to the client, like an access_token and user id from a provider.
-      // @ts-expect-error - Extend session types later
-      session.accessToken = token.accessToken;
-      // @ts-expect-error
-      session.providerAccountId = token.providerAccountId;
+      session.accessToken = token.accessToken as string | undefined;
+      session.providerAccountId = token.providerAccountId as string | undefined;
       return session;
     },
   },

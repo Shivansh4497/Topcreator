@@ -16,9 +16,7 @@ export async function completeOnboarding(goal: string, nicheInput: string) {
 
   // We use Facebook providerAccountId as the instagram_user_id placeholder for now
   // In a real flow, we would use the Graph API to get the actual linked IG account ID
-  // @ts-expect-error
   const providerAccountId = session.providerAccountId;
-  // @ts-expect-error
   const accessToken = session.accessToken;
   const email = session.user.email || `${providerAccountId}@instagram.placeholder`;
 
@@ -109,7 +107,7 @@ export async function processTopic(topicInput: string) {
 import { syncInstagramData } from "@/lib/instagram";
 import { revalidatePath } from "next/cache";
 
-export async function refreshData() {
+export async function refreshData(formData?: FormData) {
   const session = await auth();
   if (!session || !session.user || !session.user.email) {
     throw new Error("Not authenticated");
@@ -126,7 +124,6 @@ export async function refreshData() {
   await syncInstagramData(user.id, true);
   
   revalidatePath("/dashboard");
-  return { success: true };
 }
 
 import { generateWeeklyDecisions } from "@/lib/gemini";
