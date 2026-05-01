@@ -64,6 +64,46 @@ export async function completeOnboarding(goal: string, nicheInput: string) {
   return { success: true, userId: user!.id };
 }
 
+export async function saveSelectedInstagramAccount(
+  igId: string,
+  igUsername: string,
+  igFollowers: number,
+  pageAccessToken: string
+) {
+  const session = await auth();
+  if (!session || !session.user) throw new Error("Not authenticated");
+
+  const providerAccountId = (session as any).providerAccountId;
+  const email = session.user.email || `${providerAccountId}@instagram.placeholder`;
+
+  const { data: user } = await supabaseAdmin
+    .from("users")
+    .select("id")
+    .eq("email", email)
+    .single();
+
+  if (!user) throw new Error("User not found");
+
+  const { error: updateError } = await supabaseAdmin
+    .from("channels")
+    .update({
+      instagram_user_id: igId,
+      username: igUsername,
+      follower_count: igFollowers,
+      access_token: pageAccessToken,
+    })
+    .eq("user_id", user.id);
+
+  if (updateError) throw new Error(updateError.message);
+
+  try {
+    const { syncInstagramData } = await import("@/lib/instagram");
+    await syncInstagramData(user.id, true);
+  } catch (err: any) {
+    console.error("[saveSelectedInstagramAccount] Sync error:", err.message);
+  }
+}
+
 import { scoreTopic } from "@/lib/gemini";
 
 export async function processTopic(topicInput: string) {
