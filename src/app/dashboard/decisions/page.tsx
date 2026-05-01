@@ -5,15 +5,18 @@ import DecisionsManager from "@/components/DecisionsManager";
 
 export default async function DecisionsPage() {
   const session = await auth();
-  if (!session || !session.user || !session.user.email) redirect("/");
+  if (!session || !session.user) redirect("/");
+
+  const providerAccountId = (session as any).providerAccountId;
+  const email = session.user.email || `${providerAccountId}@instagram.placeholder`;
 
   const { data: user } = await supabaseAdmin
     .from("users")
     .select("id")
-    .eq("email", session.user.email)
+    .eq("email", email)
     .single();
 
-  if (!user) redirect("/");
+  if (!user) redirect("/process-auth");
 
   const { data: decisions } = await supabaseAdmin
     .from("decisions")

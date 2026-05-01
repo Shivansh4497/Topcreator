@@ -68,15 +68,18 @@ import { scoreTopic } from "@/lib/gemini";
 
 export async function processTopic(topicInput: string) {
   const session = await auth();
-  if (!session || !session.user || !session.user.email) {
+  if (!session || !session.user) {
     throw new Error("Not authenticated");
   }
+
+  const providerAccountId = (session as any).providerAccountId;
+  const email = session.user.email || `${providerAccountId}@instagram.placeholder`;
 
   // Get user ID
   const { data: user, error: userError } = await supabaseAdmin
     .from("users")
     .select("id")
-    .eq("email", session.user.email)
+    .eq("email", email)
     .single();
 
   if (userError || !user) throw new Error("User not found");
@@ -109,14 +112,17 @@ import { revalidatePath } from "next/cache";
 
 export async function refreshData(formData?: FormData) {
   const session = await auth();
-  if (!session || !session.user || !session.user.email) {
+  if (!session || !session.user) {
     throw new Error("Not authenticated");
   }
+
+  const providerAccountId = (session as any).providerAccountId;
+  const email = session.user.email || `${providerAccountId}@instagram.placeholder`;
 
   const { data: user } = await supabaseAdmin
     .from("users")
     .select("id")
-    .eq("email", session.user.email)
+    .eq("email", email)
     .single();
 
   if (!user) throw new Error("User not found");
@@ -130,14 +136,17 @@ import { generateWeeklyDecisions } from "@/lib/gemini";
 
 export async function triggerWeeklyStrategy() {
   const session = await auth();
-  if (!session || !session.user || !session.user.email) {
+  if (!session || !session.user) {
     throw new Error("Not authenticated");
   }
+
+  const providerAccountId = (session as any).providerAccountId;
+  const email = session.user.email || `${providerAccountId}@instagram.placeholder`;
 
   const { data: user } = await supabaseAdmin
     .from("users")
     .select("id")
-    .eq("email", session.user.email)
+    .eq("email", email)
     .single();
 
   if (!user) throw new Error("User not found");

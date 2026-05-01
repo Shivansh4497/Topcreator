@@ -1,6 +1,15 @@
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 import OnboardingForm from "@/components/OnboardingForm";
 
-export default function Home() {
+export default async function Home({ searchParams }: { searchParams: { error?: string } }) {
+  const session = await auth();
+
+  // If user is already logged in, redirect to dashboard unless there is an error
+  if (session && !searchParams.error) {
+    redirect("/dashboard");
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center relative overflow-hidden bg-black text-white">
       {/* Background Gradients */}
